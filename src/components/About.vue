@@ -1,18 +1,9 @@
-﻿<script setup lang="ts">
+<script setup lang="ts">
 import { onMounted, ref } from 'vue'
 
 defineProps<{ localTime: string }>()
 const activeTab = ref<'dev' | 'phil'>('dev')
 const copied = ref(false)
-const years = ref(0)
-const score = ref(0)
-
-const runCounters = () => {
-  let y = 0
-  const yT = setInterval(() => { y++; years.value = y; if (y >= 3) clearInterval(yT) }, 120)
-  let s = 0
-  const sT = setInterval(() => { s += 3; if (s > 99) s = 99; score.value = s; if (s >= 99) clearInterval(sT) }, 30)
-}
 
 const copySnippet = async () => {
   const code = activeTab.value === 'dev'
@@ -25,15 +16,7 @@ const copySnippet = async () => {
   } catch (e) {}
 }
 
-onMounted(() => {
-  const el = document.getElementById('about')
-  if (el && 'IntersectionObserver' in window) {
-    const obs = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) { runCounters(); obs.disconnect() }
-    }, { threshold: 0.15 })
-    obs.observe(el)
-  } else { years.value = 3; score.value = 99 }
-})
+onMounted(() => {})
 </script>
 
 <template>
@@ -53,21 +36,6 @@ onMounted(() => {
           <p class="text-[var(--muted)] leading-relaxed mb-6">
             I specialize in crafting high-impact full-stack web applications with rich interactivity and rock-solid architectural foundations utilizing my diverse tech stack.
           </p>
-        </div>
-
-        <div class="grid grid-cols-2 gap-4 mt-8 pt-6 border-t border-[var(--line)]">
-          <div class="p-4 rounded-2xl bg-[var(--bg)]/60 border border-[var(--line)]/60 hover:scale-105 transition-transform">
-            <div class="text-3xl sm:text-4xl font-extrabold text-[var(--cyan-bright)] flex items-baseline">
-              <span>{{ years }}</span><span class="text-xl text-[var(--gold)] ml-0.5">+</span>
-            </div>
-            <div class="text-xs text-[var(--muted)] font-mono mt-1">Years Building Products</div>
-          </div>
-          <div class="p-4 rounded-2xl bg-[var(--bg)]/60 border border-[var(--line)]/60 hover:scale-105 transition-transform">
-            <div class="text-3xl sm:text-4xl font-extrabold text-[var(--gold)] flex items-baseline">
-              <span>{{ score }}</span><span class="text-xl text-[var(--cyan-bright)] ml-0.5">%</span>
-            </div>
-            <div class="text-xs text-[var(--muted)] font-mono mt-1">Lighthouse Score</div>
-          </div>
         </div>
       </div>
 
@@ -92,7 +60,7 @@ onMounted(() => {
             <span class="text-[#c678dd]">const</span> <span class="text-[#e5c07b]">engineer</span> = {<br/>
             &nbsp;&nbsp;name: <span class="text-[#98c379]">'Ruben Puno'</span>,<br/>
             &nbsp;&nbsp;role: <span class="text-[#98c379]">'3rd Year CS Student'</span>,<br/>
-            &nbsp;&nbsp;stack: [<span class="text-[#98c379]">'Vue 3'</span>, <span class="text-[#98c379]">'React'</span>, <span class="text-[#98c379]">'PHP'</span>, <span class="text-[#98c379]">'Python'</span>]<br/>
+            &nbsp;&nbsp;stack: [<span class="text-[#98c379]">'Vue 3'</span>, <span class="text-[#98c379]">'React'</span>, <span class="text-[#98c379]">'PHP'</span>, <span class="text-[#98c379]">'Python'</span>, <span class="text-[#98c379]">'Node'</span>]<br/>
             }
           </template>
           <template v-else>

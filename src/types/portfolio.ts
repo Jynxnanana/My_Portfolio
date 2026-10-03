@@ -3,7 +3,7 @@ export type SkillCategory = 'all' | 'frontend' | 'ui' | 'tools' | 'architecture'
 export interface Skill {
   name: string
   category: SkillCategory
-  level: 'Expert' | 'Specialist' | 'Advanced' | 'Proficient' | 'Intermediate' | 'Academic' | 'Beginner'
+  level: 'Active'
   usage: string
   icon: string
 }

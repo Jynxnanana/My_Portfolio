@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { Icon } from '@iconify/vue'
 import type { Skill, SkillCategory } from '../types/portfolio'
 
 const props = defineProps<{ skills: Skill[] }>()
@@ -53,7 +54,7 @@ const filteredSkills = computed(() => {
       >
         <div>
           <div class="flex items-center justify-between mb-4">
-            <span class="text-3xl p-2 rounded-xl bg-[var(--bg)] border border-[var(--line)]">{{ skill.icon }}</span>
+            <span class="text-3xl p-2 rounded-xl bg-[var(--bg)] border border-[var(--line)]"><Icon :icon="skill.icon" /></span>
             <span class="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full border border-[var(--line)] text-[var(--cyan-bright)] bg-[var(--bg)]">{{ skill.level }}</span>
           </div>
           <h3 class="text-lg font-bold tracking-tight mb-2">{{ skill.name }}</h3>

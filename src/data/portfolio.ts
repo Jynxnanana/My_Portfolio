@@ -1,15 +1,15 @@
 import type { Skill, Project } from '../types/portfolio'
 
 export const skills: Skill[] = [
-  { name: 'Vue.js & React', category: 'frontend', level: 'Advanced', usage: 'Interactive UI, Component Architecture', icon: '⚛️' },
-  { name: 'Flutter & Dart', category: 'mobile', level: 'Intermediate', usage: 'Cross-platform mobile apps', icon: '📱' },
-  { name: 'JavaScript / Node.js', category: 'backend', level: 'Advanced', usage: 'Server-side logic, APIs, Vanilla JS', icon: '🟢' },
-  { name: 'PHP & MySQL', category: 'backend', level: 'Advanced', usage: 'Relational DBs, Server scripting', icon: '🐘' },
-  { name: 'Java & Python', category: 'software', level: 'Intermediate', usage: 'OOP, Data Structures, Scripting', icon: '☕' },
-  { name: 'Vite', category: 'tools', level: 'Advanced', usage: 'Fast builds, modern web tooling', icon: '⚡' },
-  { name: 'Tailwind CSS', category: 'frontend', level: 'Advanced', usage: 'Modern fluid CSS, Design systems', icon: '🌊' },
-  { name: 'Git & GitHub', category: 'tools', level: 'Advanced', usage: 'Version control, collaborative workflows', icon: '🐙' },
-  { name: 'Computer Science', category: 'software', level: 'Academic', usage: 'Data Structures, Algorithms', icon: '📚' }
+  { name: 'Vue.js & React', category: 'frontend', level: 'Active', usage: 'Interactive UI, Component Architecture', icon: 'logos:vue' },
+  { name: 'Flutter & Dart', category: 'mobile', level: 'Active', usage: 'Cross-platform mobile apps', icon: 'logos:flutter' },
+  { name: 'JavaScript / Node.js', category: 'backend', level: 'Active', usage: 'Server-side logic, APIs, Vanilla JS', icon: 'logos:javascript' },
+  { name: 'PHP & MySQL', category: 'backend', level: 'Active', usage: 'Relational DBs, Server scripting', icon: 'logos:php' },
+  { name: 'Java & Python', category: 'software', level: 'Active', usage: 'OOP, Data Structures, Scripting', icon: 'logos:java' },
+  { name: 'Vite', category: 'tools', level: 'Active', usage: 'Fast builds, modern web tooling', icon: 'logos:vitejs' },
+  { name: 'Tailwind CSS', category: 'frontend', level: 'Active', usage: 'Modern fluid CSS, Design systems', icon: 'logos:tailwindcss-icon' },
+  { name: 'Git & GitHub', category: 'tools', level: 'Active', usage: 'Version control, collaborative workflows', icon: 'logos:github-icon' },
+  { name: 'Computer Science', category: 'software', level: 'Active', usage: 'Data Structures, Algorithms', icon: 'ph:books-bold' }
 ]
 
 export const projects: Project[] = [
