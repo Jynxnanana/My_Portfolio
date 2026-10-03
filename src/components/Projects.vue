@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { Project } from '../types/portfolio'
-import nfaPreview from '../assets/chcci-nfa-preview.svg'
+import bsedPortalPreview from '../assets/chcc-bsed-portal-preview.svg'
 
 defineProps<{ projects: Project[] }>()
 const selectedProject = ref<Project | null>(null)
@@ -21,8 +21,8 @@ const selectedProject = ref<Project | null>(null)
         class="project-card reveal group relative spotlight-card rounded-3xl border border-[var(--line)] bg-[var(--surface)] overflow-hidden cursor-pointer hover:shadow-[0_0_35px_rgba(6,188,226,0.12)] hover:-translate-y-1.5 transition-all duration-300"
         @click="selectedProject = project"
       >
-        <div class="w-full h-[260px] bg-[var(--bg-raised)] overflow-hidden flex items-center justify-center border-b border-[var(--line)]" :class="project.number === '01' ? 'p-0' : 'p-6'">
-          <img v-if="project.number === '01'" :src="nfaPreview" alt="CHCCI NFA LAB login page preview" class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700" />
+        <div class="w-full h-[260px] bg-[var(--bg-raised)] overflow-hidden flex items-center justify-center border-b border-[var(--line)]" :class="project.number === '02' ? 'p-0' : 'p-6'">
+          <img v-if="project.number === '02'" :src="bsedPortalPreview" alt="CHCC BSED student portal login page preview" class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700" />
           <div v-else-if="project.theme === 'goodside'" class="w-[85%] h-[75%] bg-emerald-950/40 border border-emerald-500/30 rounded-2xl p-5 flex flex-col justify-between group-hover:scale-105 transition-all duration-500">
             <div class="flex justify-between text-emerald-300 text-xs font-mono"><span class="uppercase">{{ project.name }} ✳</span><span>APP</span></div>
             <div class="text-emerald-100 font-serif text-xl">Streamlining lab ops.</div>
