@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
+import { ref } from 'vue'
 import type { Project } from '../types/portfolio'
 import nfaPreview from '../assets/nfa-lab-preview.svg'
 import bsedPortalPreview from '../assets/chcc-bsed-portal-preview.svg'
@@ -7,53 +7,20 @@ import bsedPortalPreview from '../assets/chcc-bsed-portal-preview.svg'
 defineProps<{ projects: Project[] }>()
 const selectedProject = ref<Project | null>(null)
 
-// 3D Parallax state
-const parallaxX = ref(0)
-const parallaxY = ref(0)
-
-const handleMouseMove = (e: MouseEvent) => {
-  const x = (e.clientX / window.innerWidth - 0.5) * 2
-  const y = (e.clientY / window.innerHeight - 0.5) * 2
-  parallaxX.value = x
-  parallaxY.value = y
-}
-
-onMounted(() => {
-  window.addEventListener('mousemove', handleMouseMove, { passive: true })
-})
-
-onUnmounted(() => {
-  window.removeEventListener('mousemove', handleMouseMove)
-})
 </script>
 
 <template>
-  <section 
-    id="projects" 
-    class="projects-section relative z-10 mx-auto px-6 py-24 max-w-[1240px]"
-    style="perspective: 1200px;"
-  >
-    <div 
-      class="reveal mb-14 border-b border-[var(--line)] pb-4 projects-3d-container"
-      :style="{
-        transform: `perspective(1200px) rotateX(${-parallaxY * 1.5}deg) rotateY(${parallaxX * 1.5}deg)`,
-        transformStyle: 'preserve-3d',
-        transition: 'transform 0.1s ease-out'
-      }"
-    >
-      <p class="text-[var(--gold)] font-mono text-[10px] uppercase tracking-widest mb-3" style="transform: translateZ(20px)">03 / Selected Works</p>
-      <h2 class="text-3xl sm:text-5xl font-bold tracking-tighter" style="transform: translateZ(30px)">Case <span>Studies.</span></h2>
+  <section id="projects" class="projects-section relative z-10 mx-auto px-6 py-24 max-w-[1240px]">
+    <div class="reveal mb-14 border-b border-[var(--line)] pb-4">
+      <p class="text-[var(--gold)] font-mono text-[10px] uppercase tracking-widest mb-3">03 / Selected Works</p>
+      <h2 class="text-3xl sm:text-5xl font-bold tracking-tighter">Case <span>Studies.</span></h2>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <article
-        v-for="(project, index) in projects"
+        v-for="project in projects"
         :key="project.number"
-        class="project-card reveal group relative spotlight-card btn-3d rounded-3xl border border-[var(--line)] bg-[var(--surface)] overflow-hidden cursor-pointer hover:shadow-[0_0_35px_rgba(6,188,226,0.12)] hover:-translate-y-1.5 transition-all duration-300"
-        :style="{ 
-          transform: `translateZ(${index % 2 === 0 ? 20 : 40}px) rotateX(${parallaxY * -2}deg) rotateY(${parallaxX * 2}deg)`,
-          transition: 'transform 0.2s ease-out, box-shadow 0.3s ease'
-        }"
+        class="project-card reveal group relative spotlight-card rounded-3xl border border-[var(--line)] bg-[var(--surface)] overflow-hidden cursor-pointer hover:shadow-[0_0_35px_rgba(6,188,226,0.12)] hover:-translate-y-1.5 transition-all duration-300"
         @click="selectedProject = project"
       >
         <div class="w-full h-[260px] bg-[var(--bg-raised)] overflow-hidden flex items-center justify-center border-b border-[var(--line)]" :class="['01', '02'].includes(project.number) ? 'p-0' : 'p-6'">
@@ -124,9 +91,6 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-.projects-3d-container {
-  will-change: transform;
-}
 .modal-3d {
   transform-style: preserve-3d;
   transform: perspective(1000px) rotateX(5deg);
