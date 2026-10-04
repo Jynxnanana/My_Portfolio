@@ -7,7 +7,17 @@ import bsedPortalPreview from '../assets/chcc-bsed-portal-preview.svg'
 defineProps<{ projects: Project[] }>()
 const selectedProject = ref<Project | null>(null)
 
-const stopCardOpen = (event: MouseEvent) => event.stopPropagation()
+const stopCardOpen = (event: Event) => event.stopPropagation()
+
+const openDemoFromTouch = (event: TouchEvent, url: string) => {
+  event.preventDefault()
+  event.stopPropagation()
+  window.location.assign(url)
+}
+
+const closeProject = () => {
+  selectedProject.value = null
+}
 
 </script>
 
@@ -70,6 +80,7 @@ const stopCardOpen = (event: MouseEvent) => event.stopPropagation()
             :href="project.demoUrl"
             class="relative z-10 inline-flex min-h-12 touch-manipulation items-center gap-2 mt-5 px-4 py-2 rounded-xl border border-[var(--line)] bg-[var(--bg)] text-[var(--text)] text-xs font-semibold hover:border-[var(--cyan)] hover:text-[var(--cyan-bright)] transition-colors cursor-pointer"
             @click="stopCardOpen"
+            @touchend="openDemoFromTouch($event, project.demoUrl)"
           >
             Open live project <span aria-hidden="true">↗</span>
           </a>
@@ -79,9 +90,9 @@ const stopCardOpen = (event: MouseEvent) => event.stopPropagation()
 
     <!-- Modal -->
     <Teleport to="body">
-    <div v-if="selectedProject" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-slide-up pointer-events-auto" style="z-index: 2147483647; pointer-events: auto" @click.self="selectedProject = null">
-      <div class="animate-modal-pop w-full max-w-lg bg-[var(--surface)] border border-[var(--line)] rounded-3xl p-6 sm:p-8 shadow-2xl relative modal-3d pointer-events-auto" style="pointer-events: auto">
-        <button type="button" class="absolute top-6 right-6 z-10 cursor-pointer text-[var(--muted)] hover:text-white text-lg p-2" style="pointer-events: auto" @click.stop="selectedProject = null">✕</button>
+    <div v-if="selectedProject" class="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto p-4 bg-black/75 backdrop-blur-md pointer-events-auto" style="z-index: 2147483647; pointer-events: auto" @click.self="closeProject">
+      <div class="w-full max-w-lg bg-[var(--surface)] border border-[var(--line)] rounded-3xl p-6 sm:p-8 shadow-2xl relative pointer-events-auto" style="pointer-events: auto">
+        <button type="button" aria-label="Close project details" class="absolute top-4 right-4 z-10 min-h-12 min-w-12 touch-manipulation cursor-pointer text-[var(--muted)] hover:text-white text-lg rounded-xl" style="pointer-events: auto" @click.stop="closeProject" @touchend.prevent.stop="closeProject">✕</button>
         <div class="flex items-center gap-3 mb-2">
           <span class="text-xs font-mono text-[var(--gold)]">{{ selectedProject.number }}</span>
           <h3 class="text-2xl font-bold">{{ selectedProject.name }}</h3>
@@ -92,19 +103,12 @@ const stopCardOpen = (event: MouseEvent) => event.stopPropagation()
           <div class="text-[10px] font-mono text-[var(--muted)] uppercase">Key Metric Impact</div>
           <div class="text-base font-bold text-[var(--green)]">{{ selectedProject.impact }}</div>
         </div>
-        <div class="flex gap-4">
-          <a v-if="selectedProject.demoUrl" :href="selectedProject.demoUrl" class="primary-button relative z-10 inline-flex min-h-12 touch-manipulation items-center justify-center cursor-pointer px-5 py-2.5 rounded-xl font-semibold text-xs" style="pointer-events: auto" @click.stop>View Live System ↗</a>
-          <button type="button" class="secondary-button relative z-10 min-h-12 touch-manipulation cursor-pointer px-5 py-2.5 rounded-xl font-semibold border border-[var(--line)] text-xs" style="pointer-events: auto" @click.stop="selectedProject = null">Close</button>
+        <div class="flex flex-col gap-3 sm:flex-row sm:gap-4">
+          <a v-if="selectedProject.demoUrl" :href="selectedProject.demoUrl" class="primary-button relative z-10 inline-flex min-h-12 touch-manipulation items-center justify-center cursor-pointer px-5 py-2.5 rounded-xl font-semibold text-xs" style="pointer-events: auto" @click.stop @touchend="openDemoFromTouch($event, selectedProject.demoUrl)">View Live System ↗</a>
+          <button type="button" class="secondary-button relative z-10 min-h-12 touch-manipulation cursor-pointer px-5 py-2.5 rounded-xl font-semibold border border-[var(--line)] text-xs" style="pointer-events: auto" @click.stop="closeProject" @touchend.prevent.stop="closeProject">Close</button>
         </div>
       </div>
     </div>
     </Teleport>
   </section>
 </template>
-
-<style scoped>
-.modal-3d {
-  transform-style: preserve-3d;
-  transform: perspective(1000px) rotateX(5deg);
-}
-</style>
