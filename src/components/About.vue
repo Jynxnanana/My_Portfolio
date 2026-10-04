@@ -1,9 +1,28 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 defineProps<{ localTime: string }>()
 const activeTab = ref<'dev' | 'phil'>('dev')
 const copied = ref(false)
+
+// 3D Parallax state
+const parallaxX = ref(0)
+const parallaxY = ref(0)
+
+const handleMouseMove = (e: MouseEvent) => {
+  const x = (e.clientX / window.innerWidth - 0.5) * 2
+  const y = (e.clientY / window.innerHeight - 0.5) * 2
+  parallaxX.value = x
+  parallaxY.value = y
+}
+
+onMounted(() => {
+  window.addEventListener('mousemove', handleMouseMove, { passive: true })
+})
+
+onUnmounted(() => {
+  window.removeEventListener('mousemove', handleMouseMove)
+})
 
 const copySnippet = async () => {
   const code = activeTab.value === 'dev'
@@ -15,19 +34,34 @@ const copySnippet = async () => {
     setTimeout(() => { copied.value = false }, 2000)
   } catch (e) {}
 }
-
-onMounted(() => {})
 </script>
 
 <template>
-  <section id="about" class="about-section relative z-10 mx-auto px-6 py-24 max-w-[1240px]">
-    <div class="reveal mb-14 border-b border-[var(--line)] pb-4">
-      <p class="text-[var(--gold)] font-mono text-[10px] uppercase tracking-widest mb-3">01 / A Little About Me</p>
-      <h2 class="text-3xl sm:text-5xl font-bold tracking-tighter">Thoughtful by <span>design.</span></h2>
+  <section 
+    id="about" 
+    class="about-section relative z-10 mx-auto px-6 py-24 max-w-[1240px]"
+    style="perspective: 1200px;"
+  >
+    <div 
+      class="reveal mb-14 border-b border-[var(--line)] pb-4 about-3d-header"
+      :style="{
+        transform: `perspective(1200px) rotateX(${-parallaxY * 1.5}deg) rotateY(${parallaxX * 1.5}deg)`,
+        transformStyle: 'preserve-3d',
+        transition: 'transform 0.1s ease-out'
+      }"
+    >
+      <p class="text-[var(--gold)] font-mono text-[10px] uppercase tracking-widest mb-3" style="transform: translateZ(20px)">01 / A Little About Me</p>
+      <h2 class="text-3xl sm:text-5xl font-bold tracking-tighter" style="transform: translateZ(30px)">Thoughtful by <span>design.</span></h2>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div class="spotlight-card reveal p-8 rounded-3xl border border-[var(--line)] bg-[var(--surface)] flex flex-col justify-between hover:shadow-[0_0_30px_rgba(6,188,226,0.12)] transition-all">
+      <div 
+        class="spotlight-card reveal btn-3d p-8 rounded-3xl border border-[var(--line)] bg-[var(--surface)] flex flex-col justify-between hover:shadow-[0_0_30px_rgba(6,188,226,0.12)] transition-all"
+        :style="{
+          transform: `translateZ(20px) rotateX(${parallaxY * -2}deg) rotateY(${parallaxX * 2}deg)`,
+          transition: 'transform 0.2s ease-out'
+        }"
+      >
         <div>
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--cyan)]/30 bg-[var(--cyan)]/10 text-[var(--cyan-bright)] text-xs font-mono mb-6">
             <span>✨</span> Frontend Craft
@@ -39,7 +73,13 @@ onMounted(() => {})
         </div>
       </div>
 
-      <div class="spotlight-card reveal rounded-3xl border border-[var(--line)] bg-[#020509] overflow-hidden flex flex-col hover:border-[var(--cyan)]/60 transition-all shadow-2xl">
+      <div 
+        class="spotlight-card reveal btn-3d rounded-3xl border border-[var(--line)] bg-[#020509] overflow-hidden flex flex-col hover:border-[var(--cyan)]/60 transition-all shadow-2xl"
+        :style="{
+          transform: `translateZ(40px) rotateX(${parallaxY * -3}deg) rotateY(${parallaxX * 3}deg)`,
+          transition: 'transform 0.2s ease-out'
+        }"
+      >
         <div class="flex items-center justify-between px-5 py-3 border-b border-[var(--line)]/60 bg-[#060b13]">
           <div class="flex items-center gap-2">
             <div class="flex gap-1.5 mr-2">
@@ -79,3 +119,9 @@ onMounted(() => {})
     </div>
   </section>
 </template>
+
+<style scoped>
+.about-3d-header {
+  will-change: transform;
+}
+</style>

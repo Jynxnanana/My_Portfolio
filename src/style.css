@@ -21,26 +21,28 @@
   --mono: 'DM Mono', monospace;
   --display: 'Space Grotesk', sans-serif;
   --card-glow: rgba(35, 211, 240, 0.12);
+  --shimmer-start: #ffffff;
   scroll-behavior: smooth;
 }
 
 :root[data-theme='light'] {
   color-scheme: light;
-  color: #132033;
-  background: #f5f7fb;
-  --bg: #f5f7fb;
-  --bg-raised: #edf2f8;
+  color: #0f172a;
+  background: #f8fafc;
+  --bg: #f8fafc;
+  --bg-raised: #f1f5f9;
   --surface: #ffffff;
-  --surface-raised: #f0f4f9;
-  --line: #d7e0eb;
-  --text: #132033;
-  --muted: #52647c;
-  --soft-muted: #74859a;
-  --cyan: #008caf;
-  --cyan-bright: #00a6cf;
-  --gold: #e2a11e;
-  --green: #128b5b;
-  --card-glow: rgba(0, 140, 175, 0.08);
+  --surface-raised: #f1f5f9;
+  --line: #e2e8f0;
+  --text: #020617;
+  --muted: #334155;
+  --soft-muted: #64748b;
+  --cyan: #0e7490;
+  --cyan-bright: #0891b2;
+  --gold: #a16207;
+  --green: #166534;
+  --card-glow: rgba(8, 145, 178, 0.08);
+  --shimmer-start: #020617;
 }
 
 * { box-sizing: border-box; }
@@ -75,12 +77,15 @@ a { color: inherit; text-decoration: none; }
   z-index: 1;
 }
 .spotlight-card:hover::before { opacity: 1; }
-.spotlight-card:hover { border-color: color-mix(in srgb, var(--cyan) 55%, var(--line)); }
+.spotlight-card:hover { 
+  border-color: color-mix(in srgb, var(--cyan) 55%, var(--line)); 
+  box-shadow: 0 12px 40px rgba(6, 188, 226, 0.08), 0 4px 15px rgba(0, 0, 0, 0.2);
+}
 .spotlight-card:active { transition-duration: .08s; }
 
 /* ── Hero shimmer headline ── */
 .hero-name {
-  background: linear-gradient(135deg, #ffffff 0%, var(--cyan-bright) 45%, var(--gold) 100%);
+  background: linear-gradient(135deg, var(--shimmer-start) 0%, var(--cyan-bright) 45%, var(--gold) 100%);
   background-size: 220% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -102,6 +107,19 @@ a { color: inherit; text-decoration: none; }
 }
 .secondary-button {
   transition: transform .25s cubic-bezier(0.16,1,0.3,1), border-color .25s ease;
+}
+
+/* ── 3D Button / Card hover transforms ── */
+.btn-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+.btn-3d:hover {
+  transform: translateZ(8px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(6, 188, 226, 0.1), 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+.btn-3d:active {
+  transform: translateZ(2px) scale(0.98);
 }
 
 /* ── Typewriter caret ── */
@@ -128,6 +146,7 @@ html.reveal-enabled .reveal.is-visible { opacity: 1; transform: translateY(0); }
   :root { scroll-behavior: auto; }
   .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
   .spotlight-card { transform: none !important; transition: none !important; }
+  .btn-3d { transform: none !important; transition: none !important; }
   .ambient-orb, .animate-float-1, .animate-float-2, .animate-float-3,
   .animate-mouse-wheel, .role-caret, .hero-name, .site-header:hover::after,
   .animate-modal-pop { animation: none !important; }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { Icon } from '@iconify/vue'
 import { triggerConfetti } from '../utils/confetti'
 
@@ -9,6 +9,25 @@ const emit = defineEmits<{
 
 const form = ref({ name: '', email: '', message: '' })
 const isSubmitting = ref(false)
+
+// 3D Parallax state
+const parallaxX = ref(0)
+const parallaxY = ref(0)
+
+const handleMouseMove = (e: MouseEvent) => {
+  const x = (e.clientX / window.innerWidth - 0.5) * 2
+  const y = (e.clientY / window.innerHeight - 0.5) * 2
+  parallaxX.value = x
+  parallaxY.value = y
+}
+
+onMounted(() => {
+  window.addEventListener('mousemove', handleMouseMove, { passive: true })
+})
+
+onUnmounted(() => {
+  window.removeEventListener('mousemove', handleMouseMove)
+})
 
 // FormSubmit.co — free, no account needed.
 // IMPORTANT: On the first submission, a confirmation email will be sent to rubenpunojr6@gmail.com.
@@ -59,10 +78,21 @@ const handleSubmit = async (e: Event) => {
 </script>
 
 <template>
-  <section id="contact" class="contact-section relative z-10 mx-auto px-6 py-24 max-w-[1240px]">
-    <div class="reveal mb-14 border-b border-[var(--line)] pb-4">
-      <p class="text-[var(--gold)] font-mono text-[10px] uppercase tracking-widest mb-3">04 / Start A Conversation</p>
-      <h2 class="text-3xl sm:text-5xl font-bold tracking-tighter">Let's build <span>together.</span></h2>
+  <section 
+    id="contact" 
+    class="contact-section relative z-10 mx-auto px-6 py-24 max-w-[1240px]"
+    style="perspective: 1200px;"
+  >
+    <div 
+      class="reveal mb-14 border-b border-[var(--line)] pb-4 contact-3d-header"
+      :style="{
+        transform: `perspective(1200px) rotateX(${-parallaxY * 1.5}deg) rotateY(${parallaxX * 1.5}deg)`,
+        transformStyle: 'preserve-3d',
+        transition: 'transform 0.1s ease-out'
+      }"
+    >
+      <p class="text-[var(--gold)] font-mono text-[10px] uppercase tracking-widest mb-3" style="transform: translateZ(20px)">04 / Start A Conversation</p>
+      <h2 class="text-3xl sm:text-5xl font-bold tracking-tighter" style="transform: translateZ(30px)">Let's build <span>together.</span></h2>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -127,7 +157,13 @@ const handleSubmit = async (e: Event) => {
         </div>
       </div>
 
-      <div class="reveal spotlight-card p-8 rounded-3xl border border-[var(--line)] bg-[var(--surface)] shadow-2xl">
+      <div 
+        class="reveal spotlight-card btn-3d p-8 rounded-3xl border border-[var(--line)] bg-[var(--surface)] shadow-2xl"
+        :style="{
+          transform: `translateZ(30px) rotateX(${parallaxY * -2}deg) rotateY(${parallaxX * 2}deg)`,
+          transition: 'transform 0.2s ease-out'
+        }"
+      >
         <form @submit.prevent="handleSubmit" class="space-y-4">
           <div>
             <label class="block text-xs font-mono uppercase text-[var(--muted)] mb-2">Your Name</label>
@@ -141,7 +177,7 @@ const handleSubmit = async (e: Event) => {
             <label class="block text-xs font-mono uppercase text-[var(--muted)] mb-2">Message</label>
             <textarea v-model="form.message" rows="4" placeholder="Tell me about your project..." class="w-full bg-[var(--bg)] border border-[var(--line)] rounded-xl px-4 py-3 text-sm focus:border-[var(--cyan)] outline-none resize-none transition-colors"></textarea>
           </div>
-          <button type="submit" :disabled="isSubmitting" class="w-full primary-button py-3.5 rounded-xl font-semibold text-sm hover:scale-[1.02] active:scale-[0.98] transition-all">
+          <button type="submit" :disabled="isSubmitting" class="w-full primary-button btn-3d py-3.5 rounded-xl font-semibold text-sm hover:scale-[1.02] active:scale-[0.98] transition-all">
             {{ isSubmitting ? 'Sending...' : 'Send Message 🚀' }}
           </button>
         </form>
@@ -149,3 +185,9 @@ const handleSubmit = async (e: Event) => {
     </div>
   </section>
 </template>
+
+<style scoped>
+.contact-3d-header {
+  will-change: transform;
+}
+</style>
