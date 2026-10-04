@@ -7,6 +7,8 @@ import bsedPortalPreview from '../assets/chcc-bsed-portal-preview.svg'
 defineProps<{ projects: Project[] }>()
 const selectedProject = ref<Project | null>(null)
 
+const stopCardOpen = (event: MouseEvent) => event.stopPropagation()
+
 </script>
 
 <template>
@@ -63,6 +65,16 @@ const selectedProject = ref<Project | null>(null)
           <div class="flex flex-wrap gap-2">
             <span v-for="tag in project.services" :key="tag" class="px-2.5 py-0.5 rounded-full border border-[var(--line)] bg-[var(--bg)] text-[var(--muted)] font-mono text-[10px]">{{ tag }}</span>
           </div>
+          <a
+            v-if="project.demoUrl"
+            :href="project.demoUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 mt-5 px-4 py-2 rounded-xl border border-[var(--line)] bg-[var(--bg)] text-[var(--text)] text-xs font-semibold hover:border-[var(--cyan)] hover:text-[var(--cyan-bright)] transition-colors cursor-pointer"
+            @click="stopCardOpen"
+          >
+            Open live project <span aria-hidden="true">↗</span>
+          </a>
         </div>
       </article>
     </div>
