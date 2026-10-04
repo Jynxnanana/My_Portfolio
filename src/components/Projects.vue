@@ -68,9 +68,7 @@ const stopCardOpen = (event: MouseEvent) => event.stopPropagation()
           <a
             v-if="project.demoUrl"
             :href="project.demoUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 mt-5 px-4 py-2 rounded-xl border border-[var(--line)] bg-[var(--bg)] text-[var(--text)] text-xs font-semibold hover:border-[var(--cyan)] hover:text-[var(--cyan-bright)] transition-colors cursor-pointer"
+            class="relative z-10 inline-flex min-h-12 touch-manipulation items-center gap-2 mt-5 px-4 py-2 rounded-xl border border-[var(--line)] bg-[var(--bg)] text-[var(--text)] text-xs font-semibold hover:border-[var(--cyan)] hover:text-[var(--cyan-bright)] transition-colors cursor-pointer"
             @click="stopCardOpen"
           >
             Open live project <span aria-hidden="true">↗</span>
@@ -95,8 +93,8 @@ const stopCardOpen = (event: MouseEvent) => event.stopPropagation()
           <div class="text-base font-bold text-[var(--green)]">{{ selectedProject.impact }}</div>
         </div>
         <div class="flex gap-4">
-          <a v-if="selectedProject.demoUrl" :href="selectedProject.demoUrl" target="_blank" rel="noopener noreferrer" class="primary-button relative z-10 cursor-pointer px-5 py-2.5 rounded-xl font-semibold text-xs" style="pointer-events: auto">View Live System ↗</a>
-          <button type="button" class="secondary-button relative z-10 cursor-pointer px-5 py-2.5 rounded-xl font-semibold border border-[var(--line)] text-xs" style="pointer-events: auto" @click.stop="selectedProject = null">Close</button>
+          <a v-if="selectedProject.demoUrl" :href="selectedProject.demoUrl" class="primary-button relative z-10 inline-flex min-h-12 touch-manipulation items-center justify-center cursor-pointer px-5 py-2.5 rounded-xl font-semibold text-xs" style="pointer-events: auto" @click.stop>View Live System ↗</a>
+          <button type="button" class="secondary-button relative z-10 min-h-12 touch-manipulation cursor-pointer px-5 py-2.5 rounded-xl font-semibold border border-[var(--line)] text-xs" style="pointer-events: auto" @click.stop="selectedProject = null">Close</button>
         </div>
       </div>
     </div>
