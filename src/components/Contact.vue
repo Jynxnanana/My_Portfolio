@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { Icon } from '@iconify/vue'
 import { triggerConfetti } from '../utils/confetti'
 
 const emit = defineEmits<{
@@ -86,6 +87,40 @@ const handleSubmit = async (e: Event) => {
               <div>
                 <div class="text-[10px] uppercase font-mono text-[var(--muted)]">Location</div>
                 <span class="text-[var(--text)] text-sm">Tarlac, Philippines</span>
+              </div>
+            </div>
+
+            <!-- Social Links -->
+            <div class="pt-2">
+              <div class="text-[10px] uppercase font-mono text-[var(--muted)] mb-3">Connect with me</div>
+              <div class="flex items-center gap-3">
+                <a
+                  href="https://github.com/Jynxnanana"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-[var(--line)] bg-[var(--surface)] hover:border-[var(--cyan)] hover:bg-[var(--cyan)]/10 hover:scale-105 active:scale-95 transition-all text-sm font-medium"
+                >
+                  <Icon icon="mdi:github" class="w-5 h-5 text-[var(--muted)] group-hover:text-[var(--cyan-bright)] transition-colors" />
+                  <span class="text-[var(--text)] group-hover:text-[var(--cyan-bright)] transition-colors">GitHub</span>
+                </a>
+                <a
+                  href="https://www.facebook.com/ruben.puno.56"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-[var(--line)] bg-[var(--surface)] hover:border-[var(--cyan)] hover:bg-[var(--cyan)]/10 hover:scale-105 active:scale-95 transition-all text-sm font-medium"
+                >
+                  <Icon icon="mdi:facebook" class="w-5 h-5 text-[var(--muted)] group-hover:text-[var(--cyan-bright)] transition-colors" />
+                  <span class="text-[var(--text)] group-hover:text-[var(--cyan-bright)] transition-colors">Facebook</span>
+                </a>
+                <a
+                  href="https://www.tiktok.com/@vibe.coder.pro.max?lang=en"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-[var(--line)] bg-[var(--surface)] hover:border-[var(--cyan)] hover:bg-[var(--cyan)]/10 hover:scale-105 active:scale-95 transition-all text-sm font-medium"
+                >
+                  <Icon icon="ic:baseline-tiktok" class="w-5 h-5 text-[var(--muted)] group-hover:text-[var(--cyan-bright)] transition-colors" />
+                  <span class="text-[var(--text)] group-hover:text-[var(--cyan-bright)] transition-colors">TikTok</span>
+                </a>
               </div>
             </div>
           </div>

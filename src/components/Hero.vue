@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
+import { Icon } from '@iconify/vue'
 import { triggerConfetti } from '../utils/confetti'
 
 const emit = defineEmits<{ (e: 'copyEmail'): void }>()
@@ -84,7 +85,7 @@ onUnmounted(() => { clearTimeout(typeTimeout) })
       I'm a 3rd Year Computer Science student building fast, resilient, and dynamic applications. Passionate about both frontend aesthetics and robust backend architectures utilizing my diverse tech stack.
     </p>
     
-    <div class="hero-actions reveal flex flex-wrap items-center justify-center gap-4 mb-16">
+    <div class="hero-actions reveal flex flex-wrap items-center justify-center gap-4 mb-10">
       <a
         href="#projects"
         class="primary-button group inline-flex items-center gap-3 bg-[var(--cyan-bright)] text-[#040e16] px-8 py-4 rounded-2xl font-semibold tracking-wide transition-all shadow-lg hover:shadow-cyan-500/30 hover:scale-105 active:scale-95 cursor-pointer"
@@ -99,6 +100,19 @@ onUnmounted(() => { clearTimeout(typeTimeout) })
         <span>Copy Email</span>
         <span class="group-hover:rotate-12 transition-transform">✨</span>
       </button>
+    </div>
+
+    <!-- Social Links -->
+    <div class="reveal flex items-center gap-5 mb-16">
+      <a href="https://www.facebook.com/ruben.puno.56" target="_blank" rel="noopener noreferrer" class="group flex items-center justify-center w-11 h-11 rounded-xl border border-[var(--line)] bg-[var(--surface)] hover:border-[var(--cyan)] hover:bg-[var(--cyan)]/10 hover:scale-110 active:scale-95 transition-all shadow-sm" aria-label="Facebook">
+        <Icon icon="mdi:facebook" class="w-5 h-5 text-[var(--muted)] group-hover:text-[var(--cyan-bright)] transition-colors" />
+      </a>
+      <a href="https://www.tiktok.com/@vibe.coder.pro.max?lang=en" target="_blank" rel="noopener noreferrer" class="group flex items-center justify-center w-11 h-11 rounded-xl border border-[var(--line)] bg-[var(--surface)] hover:border-[var(--cyan)] hover:bg-[var(--cyan)]/10 hover:scale-110 active:scale-95 transition-all shadow-sm" aria-label="TikTok">
+        <Icon icon="ic:baseline-tiktok" class="w-5 h-5 text-[var(--muted)] group-hover:text-[var(--cyan-bright)] transition-colors" />
+      </a>
+      <a href="https://github.com/Jynxnanana" target="_blank" rel="noopener noreferrer" class="group flex items-center justify-center w-11 h-11 rounded-xl border border-[var(--line)] bg-[var(--surface)] hover:border-[var(--cyan)] hover:bg-[var(--cyan)]/10 hover:scale-110 active:scale-95 transition-all shadow-sm" aria-label="GitHub">
+        <Icon icon="mdi:github" class="w-5 h-5 text-[var(--muted)] group-hover:text-[var(--cyan-bright)] transition-colors" />
+      </a>
     </div>
 
     <!-- Animated Scroll Mouse Indicator -->
