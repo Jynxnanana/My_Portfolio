@@ -135,7 +135,7 @@ const handleSubmit = async (e: Event) => {
           </div>
           <div>
             <label class="block text-xs font-mono uppercase text-[var(--muted)] mb-2">Your Email</label>
-            <input v-model="form.email" type="email" placeholder="rubenpunojr6@gmail.com" class="w-full bg-[var(--bg)] border border-[var(--line)] rounded-xl px-4 py-3 text-sm focus:border-[var(--cyan)] outline-none transition-colors" />
+            <input v-model="form.email" type="email" placeholder="benru@example.com" class="w-full bg-[var(--bg)] border border-[var(--line)] rounded-xl px-4 py-3 text-sm focus:border-[var(--cyan)] outline-none transition-colors" />
           </div>
           <div>
             <label class="block text-xs font-mono uppercase text-[var(--muted)] mb-2">Message</label>
