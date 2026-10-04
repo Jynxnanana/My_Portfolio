@@ -69,9 +69,9 @@ const selectedProject = ref<Project | null>(null)
 
     <!-- Modal -->
     <Teleport to="body">
-    <div v-if="selectedProject" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-slide-up" @click.self="selectedProject = null">
-      <div class="animate-modal-pop w-full max-w-lg bg-[var(--surface)] border border-[var(--line)] rounded-3xl p-6 sm:p-8 shadow-2xl relative modal-3d">
-        <button type="button" class="absolute top-6 right-6 z-10 text-[var(--muted)] hover:text-white text-lg p-2" @click.stop="selectedProject = null">✕</button>
+    <div v-if="selectedProject" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-slide-up pointer-events-auto" style="z-index: 2147483647; pointer-events: auto" @click.self="selectedProject = null">
+      <div class="animate-modal-pop w-full max-w-lg bg-[var(--surface)] border border-[var(--line)] rounded-3xl p-6 sm:p-8 shadow-2xl relative modal-3d pointer-events-auto" style="pointer-events: auto">
+        <button type="button" class="absolute top-6 right-6 z-10 cursor-pointer text-[var(--muted)] hover:text-white text-lg p-2" style="pointer-events: auto" @click.stop="selectedProject = null">✕</button>
         <div class="flex items-center gap-3 mb-2">
           <span class="text-xs font-mono text-[var(--gold)]">{{ selectedProject.number }}</span>
           <h3 class="text-2xl font-bold">{{ selectedProject.name }}</h3>
@@ -83,8 +83,8 @@ const selectedProject = ref<Project | null>(null)
           <div class="text-base font-bold text-[var(--green)]">{{ selectedProject.impact }}</div>
         </div>
         <div class="flex gap-4">
-          <a v-if="selectedProject.demoUrl" :href="selectedProject.demoUrl" target="_blank" rel="noopener noreferrer" class="primary-button btn-3d relative z-10 px-5 py-2.5 rounded-xl font-semibold text-xs" @click.stop>View Live System ↗</a>
-          <button type="button" @click.stop="selectedProject = null" class="secondary-button btn-3d relative z-10 px-5 py-2.5 rounded-xl font-semibold border border-[var(--line)] text-xs">Close</button>
+          <a v-if="selectedProject.demoUrl" :href="selectedProject.demoUrl" target="_blank" rel="noopener noreferrer" class="primary-button relative z-10 cursor-pointer px-5 py-2.5 rounded-xl font-semibold text-xs" style="pointer-events: auto">View Live System ↗</a>
+          <button type="button" class="secondary-button relative z-10 cursor-pointer px-5 py-2.5 rounded-xl font-semibold border border-[var(--line)] text-xs" style="pointer-events: auto" @click.stop="selectedProject = null">Close</button>
         </div>
       </div>
     </div>
